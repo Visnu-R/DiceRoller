@@ -11,11 +11,14 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+    int Score = 0;
+    int userChoice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +61,31 @@ public class MainActivity extends AppCompatActivity {
 
     public void On_Button_Click (View view) {
        TextView tv = this.findViewById(R.id.textView);
+       TextView congrats = this.findViewById(R.id.textViewCon);
+       TextView score = this.findViewById(R.id.textViewScore);
 
        Random r = new Random();
        int number = 0;
+
        while (true){
            number = r.nextInt(7);
            if(number !=0) break;
        }
        tv.setText(Integer.toString(number));
+       score.setText("Score: "+Score);
 
+       EditText Input;
+       Input = this.findViewById(R.id.UserInput);
+       userChoice = Integer.valueOf(Input.getText().toString());
 
+       if(userChoice == number){
+           Score = Score + 1;
+           score.setText("Score: " +Score);
+           congrats.setText("Congratulations!");
+       }
+       else{
+           congrats.setText("Wrong");
+       }
     }
 
 
